@@ -1,70 +1,91 @@
-# Getting Started with Create React App
+# Portal for Country Polygon Management
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This portal allows administrators to manage countries and their border polygons. It interacts with a backend server to store, update, and delete data in the database, ensuring secure authentication via tokens.
 
-## Available Scripts
+## Authentication and Token Management
 
-In the project directory, you can run:
+- **Login & Registration**: Users can log in or register by providing their email and password. Upon successful login, a **JWT token** is stored in the browser's local storage and is used for authenticated requests to the backend server.
+- **Token Management**: The portal uses the token to authenticate each action, ensuring that only authorized users can perform certain operations.
+- **JWT Authentication**: The token is decoded to retrieve the user's information, and the server verifies the token for each request to protect against unauthorized access.
 
-### `npm start`
+### Key Functions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Login**: 
+   - Users log in using their email and password. If successful, a JWT token is issued and stored.
+   - The token is used to authenticate subsequent requests.
+   
+2. **Register**: 
+   - New users can register by providing their email and password.
+   - After successful registration, the user is logged in and a JWT token is issued.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Add New Country**:
+   - Admins can add new countries by providing country name, code, and polygons.
+   - Polygons should be provided in a valid JSON array format (e.g., `[[[longitude, latitude], ...]]`).
+   - The backend server validates the data and stores the country in the database.
 
-### `npm test`
+4. **Edit Country Polygons**:
+   - Admins can edit the polygons of an existing country.
+   - The new polygon data is validated and sent to the server for updating in the database.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. **Delete Country**:
+   - Admins can delete a country by specifying its code.
+   - The backend server deletes the country and its associated polygons from the database.
 
-### `npm run build`
+6. **View Countries**:
+   - The portal displays a list of all countries with their associated codes and polygons.
+   - Admins can view and edit the polygons for each country.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+7. **API Usage Statistics**:
+   - The portal fetches statistics from the backend server, such as the total number of requests, the number of times a location was inside the country borders, and the number of false responses.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Data Storage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The portal connects to a backend server to interact with a database (e.g., MongoDB).
+- When a user adds, updates, or deletes a country, the portal sends a request to the backend server, which performs the operation and updates the database.
+- The server ensures that only users with a valid token can modify data.
+  
+### Backend Communication
 
-### `npm run eject`
+- All interactions with the backend server are protected using **Bearer Tokens** (JWT).
+- The server receives the token in the request headers and validates it before allowing access to any protected routes.
+- For actions like adding or deleting countries, the portal communicates with the backend via HTTP requests (GET, POST, PUT, DELETE), ensuring the correct data is stored in the database.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## How It Works
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. The user logs in or registers, receiving a JWT token in return.
+2. The token is stored in the local storage of the browser.
+3. For each operation (add/edit/delete country, view countries, etc.), the portal sends a request to the backend server, passing the token in the `Authorization` header.
+4. The backend server verifies the token, processes the request, and updates the database accordingly.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Security
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- The use of JWT ensures that only authenticated users can perform sensitive operations, like adding or deleting countries.
+- The token is stored in **local storage** and sent with every request to verify the user's identity.
+- The backend server ensures secure communication by validating the token and checking user permissions.
 
-## Learn More
+## Getting Started
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone this repository and set up the backend server.
+2. Install the required dependencies for the frontend using `npm install`.
+3. Make sure the backend server is running and connected to the database.
+4. Open the portal in your browser and log in with the credentials provided by the admin.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Example of API Usage
 
-### Code Splitting
+- To add a new country:
+    ```js
+    axios.post('/api/countries', {
+      name: 'Country Name',
+      code: 'CN',
+      polygons: [[[-140.0, 60.0], [-120.0, 60.0], [-120.0, 50.0], [-140.0, 50.0], [-140.0, 60.0]]],
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Conclusion
 
-### Analyzing the Bundle Size
+This portal provides a secure and easy-to-use interface for admins to manage country polygons and related data. By using JWT for authentication and authorization, the system ensures that only authorized users can make modifications to the data, keeping the process secure and efficient.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
