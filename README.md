@@ -13,6 +13,8 @@ This portal allows administrators to manage countries and their border polygons.
 1. **Login**: 
    - Users log in using their email and password. If successful, a JWT token is issued and stored.
    - The token is used to authenticate subsequent requests.
+  
+   ![Alt text]( https://github.com/almitoo/Polygon-management-portal/blob/e172bcbe98da5e8b7de7e1b5a47ad339620a778b/Screenshot%202025-02-03%20163406.png)
    
 2. **Register**: 
    - New users can register by providing their email and password.
@@ -26,6 +28,8 @@ This portal allows administrators to manage countries and their border polygons.
 4. **Edit Country Polygons**:
    - Admins can edit the polygons of an existing country.
    - The new polygon data is validated and sent to the server for updating in the database.
+   - 
+![Alt text](https://github.com/almitoo/Polygon-management-portal/blob/e172bcbe98da5e8b7de7e1b5a47ad339620a778b/Screenshot%202025-02-03%20163517.png)
 
 5. **Delete Country**:
    - Admins can delete a country by specifying its code.
@@ -37,6 +41,8 @@ This portal allows administrators to manage countries and their border polygons.
 
 7. **API Usage Statistics**:
    - The portal fetches statistics from the backend server, such as the total number of requests, the number of times a location was inside the country borders, and the number of false responses.
+
+![Alt text](https://github.com/almitoo/Polygon-management-portal/blob/e172bcbe98da5e8b7de7e1b5a47ad339620a778b/Screenshot%202025-02-03%20163748.png)
 
 ### Data Storage
 
