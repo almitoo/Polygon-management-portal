@@ -91,6 +91,11 @@ This portal allows administrators to manage countries and their border polygons.
     });
     ```
 
+    # Deployment
+This API is deployed on Vercel.
+https://vercel.com/almitos-projects/polygon-management-portal
+
+
 ## Conclusion
 
 This portal provides a secure and easy-to-use interface for admins to manage country polygons and related data. By using JWT for authentication and authorization, the system ensures that only authorized users can make modifications to the data, keeping the process secure and efficient.
